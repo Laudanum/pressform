@@ -116,4 +116,35 @@ if(!function_exists('get_mysql_max_allowed_connections')) {
 		return $connection_max;
 	}
 }
+
+// Size Categories
+if(!function_exists('file_size_info')) {
+	function file_size_info($filesize) {
+		$bytes = array('KB', 'KB', 'MB', 'GB', 'TB');
+		if ($filesize < 1024) $filesize = 1;
+
+		for($i = 0; $filesize > 1024; $i++) $filesize /= 1024;
+		$file_size_info['size'] = round($filesize,3);
+		$file_size_info['type'] = $bytes[$i];
+		return $file_size_info;
+	} 
+}
+// Calculate DB size by adding table size + index size
+if(!function_exists('db_size')) {
+	function db_size() {
+		$rows = mysql_query('SHOW table STATUS');
+		$dbsize = 0;
+		while($row = mysql_fetch_array($rows)) {
+			$dbsize += $row['Data_length'] + $row['Index_length'];
+		}
+
+		if($dbsize > ALERTLEVEL * 1024 * 1024)
+			$color = '#FF0000';
+		else
+			$color = '#0000FF';
+
+		$dbsize = file_size_info($dbsize);
+		echo '<span style="color: ' . $color . '">{' . $dbsize['size'] . '} {' . $dbsize['type'] . '}</span>'; 
+	}
+}
 ?>

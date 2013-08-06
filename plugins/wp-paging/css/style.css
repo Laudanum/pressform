@@ -1,0 +1,105 @@
+/* Clear things*/
+ul.paga-numbers, ul.page-numbers li, ul.page-numbers li a, ul.page-numbers li a:hover ul.page-numbers li span {
+	padding: 0;
+	margin: 0;
+	text-decoration: none;
+	font: normal 12px Arial;
+	border: none;
+}
+
+ul.page-numbers {
+	margin-top: 20px;
+	margin-bottom: 20px;
+	text-align: left;
+	padding: 5px 0 5px 0;
+}
+	ul.page-numbers li {
+		display: inline;
+	}
+		ul.page-numbers li a {
+			text-decoration: none;
+			border: none;
+			padding-bottom: 10px;
+		}
+	ul.page-numbers span.dots {
+		color: #666;
+	}
+	
+	ul.page-numbers li a, .page-numbers span.current, .page-numbers span.dots {
+		font: normal 12px Arial;
+		padding: 5px;
+	}
+	
+/* SETTINGS - ALIGN CENTER  - Default = align-left */
+ul.align-right { text-align: right; }
+ul.align-center { text-align: center; }
+
+span.page-info.left {
+	padding: 0 10px 0 0;
+}
+
+span.page-info.right {
+	padding: 0 0 0 10px;
+}
+
+ul.shape-round li a, ul.shape-round span.current {
+	-moz-border-radius: 5px;
+	-khtml-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+}
+/* SETTINGS - ACTIVE BACKGROUND */
+ul.current-page-yellow span.current { background: #ffff00; color: #666; }
+ul.current-page-purple span.current { background: #ac58ff; color: #fff; }
+ul.current-page-dark span.current { background: #666; color: #eee; }
+ul.current-page-bright span.current { background: #e6e6e6; color: #666; border: 1px solid #ddd; }
+ul.current-page-red span.current { background: #ba0000; color: #fff; }
+ul.current-page-green span.current { background: #69ba00; color: #fff; }
+ul.current-page-cyan span.current { background: #18C6FF; color: #fff; }
+ul.current-page-pink span.current { background: #ff80ff; color: #fff; }
+ul.current-page-orange span.current { background: #ff9a00; color: #fff; }
+
+/* SETTINGS - page BACKGROUND */
+ul.page-yellow li a { background: #ffff00; color: #666; }	
+ul.page-purple li a { background: #ac58ff; color: #fff; }
+ul.page-dark li a { background: #666; color: #fff; }
+ul.page-bright li a { background: #e6e6e6; border: 1px solid #ddd; color: #666; }
+ul.page-red li a { background: #ba0000; color: #fff; }
+ul.page-green li a { background: #69ba00; color: #fff; }
+ul.page-cyan li a { background: #18C6FF; color: #fff; }
+ul.page-pink li a { background: #ff80ff; color: #fff; }
+ul.page-orange li a { background: #ff9a00; color: #fff; }
+	
+
+/* SETTINGS - page BACKGROUND */
+ul.current-page-yellow.fill-gradient span.current, ul.page-yellow.fill-gradient li a { background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ffffe4), to(#ffff07)); }
+ul.current-page-purple.fill-gradient span.current, ul.page-purple.fill-gradient li a { background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#bf77ff), to(#913cff)); }
+ul.current-page-dark.fill-gradient span.current, ul.page-dark.fill-gradient li a { background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#848484), to(#494949)); }
+ul.current-page-bright.fill-gradient span.current, ul.page-bright.fill-gradient li a { background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f6f6f6), to(#dfdfdf)); }
+ul.current-page-red.fill-gradient span.current, ul.page-red.fill-gradient li a { background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#da0000), to(#8b0000)); }
+ul.current-page-green.fill-gradient span.current, ul.page-green.fill-gradient li a { background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#87ca00), to(#4ba200)); }
+ul.current-page-cyan.fill-gradient span.current, ul.page-cyan.fill-gradient li a { background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#30d4ff), to(#0db1ff)); }
+ul.current-page-pink.fill-gradient span.current, ul.page-pink.fill-gradient li a { background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ffb5ff), to(#ff44ff)); }
+ul.current-page-orange.fill-gradient span.current, ul.page-orange.fill-gradient li a { background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ffb000), to(#ff7d00)); }
+
+ul.page-yellow li a:hover { background: #fff; color: #666; text-decoration: none;}
+ul.page-purple li a:hover { background: #8000ff; text-decoration: none; }
+ul.page-dark li a:hover { background: #444; text-decoration: none; }
+ul.page-bright li a:hover { background: #efefef; border: 1px solid #ccc; color: #666; text-decoration: none; }
+ul.page-red li a:hover { background: #9a0000; text-decoration: none; }
+ul.page-green li a:hover { background: #4e8b00; text-decoration: none; }
+ul.page-cyan li a:hover { background: #14a9d9; text-decoration: none; }
+ul.page-pink li a:hover { background: #ff40ff; text-decoration: none; }
+ul.page-orange li a:hover { background: #da8400; text-decoration: none; }
+
+/* behind | default = dark */	
+ul.behind-brighter span.dots, ul.behind-brighter span.page-info { color: #ddd; }
+ul.behind-bright span.dots , ul.behind-bright span.page-info {	color: #aaa; }
+ul.behind-grey span.dots, ul.behind-grey span.page-info { color: #808080; }
+ul.behind-dark span.dots, ul.behind-dark span.page-info { color: #666; }
+ul.behind-darker span.dots, ul.behind-darker span.page-info { color: #333; }
+
+/* IE6 fix */
+ul.page-purple li a:hover, ul.page-dark li a:hover, ul.page-red li a:hover , ul.page-green li a:hover, ul.page-cyan li a:hover, ul.page-pink li a:hover, ul.page-orange li a:hover {
+	color: #fff; text-decoration: none;
+}

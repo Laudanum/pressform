@@ -1,9 +1,9 @@
 === Portable phpMyAdmin ===
 Contributors: butterflymedia, getbutterfly
-Tags: phpmyadmin, php, portable, database, mysql, sql, admin
-Requires at least: 3.0
-Tested up to: 3.5-alpha
-Stable tag: 1.3-alpha
+Tags: phpmyadmin, php, portable, database, mysql, sql, admin, pma
+Requires at least: 3.3
+Tested up to: 3.6-beta1
+Stable tag: 1.4.1
 
 == Description ==
 
@@ -13,11 +13,41 @@ If the user doesn't know the MySQL credentials, the plugin extracts them straigh
 
 phpMyAdmin is a free software tool written in PHP, intended to handle the administration of MySQL over the World Wide Web. phpMyAdmin supports a wide range of operations with MySQL. The most frequently used operations are supported by the user interface (managing databases, tables, fields, relations, indexes, users, permissions, etc), while you still have the ability to directly execute any SQL statement.
 
+**Note:** This plugin should only be used for development purposes or by experienced users. If more users have access to the administration section, you should consider using the plugin *only when necessary*.
+
 == Installation ==
 
-Upload the Portable phpMyAdmin plugin to your blog, activate it, then go to Tools | Portable PMA to use it.
+Upload the Portable phpMyAdmin plugin to your blog, activate it, then go to Portable PMA to use it.
 
 == Changelog ==
+
+= 1.4.1 =
+* Removed zend.ze1_compatibility_mode directive check
+* Removed magic_quotes_runtime directive check
+* Removed output header from index.php
+* Removed error reporting
+
+= 1.4 =
+* SECURITY: Added unique hash option (no access from outside anymore)
+* SECURITY: Added administrator check (no subscriber access)
+* SECURITY: Added blank index.php file to every folder inside phpMyAdmin
+
+= 1.3.2.2 =
+* SECURITY: Added referrer check for direct IFRAME access
+* SECURITY: Added Javascript check for direct IFRAME access
+* SECURITY: Added md5 encryption for caller parameter
+
+= 1.3.2.1 =
+* GENERAL: Added general warning for plugin usage
+* GENERAL: Moved database details below the main phpMyAdmin frame for better visibility on smaller screens
+
+= 1.3.2 =
+* FIX: Fixed security vulnerability
+* FIX: Fixed direct browsing to plugin subdirectories
+* FIX: Fixed vulnerability described by James Dunn on wpmu.org
+
+= 1.3.1 =
+* FIX: Fixed security vulnerability.
 
 = 1.3-alpha =
 * FIX: Incremental alpha patch

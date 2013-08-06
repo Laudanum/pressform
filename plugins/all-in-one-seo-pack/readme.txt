@@ -2,17 +2,17 @@
 Contributors: hallsofmontezuma
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=mrtorbert%40gmail%2ecom&item_name=All%20In%20One%20SEO%20Pack&item_number=Support%20Open%20Source&no_shipping=0&no_note=1&tax=0&currency_code=USD&lc=US&bn=PP%2dDonationsBF&charset=UTF%2d8
 Tags: seo, search engine optimization, google
-Requires at least: 3.0
-Tested up to: 3.3.1
+Requires at least: 3.3
+Tested up to: 3.5.1
 Stable tag: trunk
- 
+
 WordPress SEO plugin to automatically optimize your Wordpress blog for Search Engines.
 
 == Description ==
 
 **Optimizes** your Wordpress blog for Search Engines (**Search Engine Optimization**).
 
-**[Upgrade to Pro Version](http://wpplugins.com/plugin/50/all-in-one-seo-pack-pro-version)**
+**[Upgrade to Pro Version](http://semperplugins.com/plugins/all-in-one-seo-pack-pro-version/)**
 
 [Support](http://semperfiwebdesign.com/forum/) |
 [Change Log](http://semperfiwebdesign.com/documentation/all-in-one-seo-pack/all-in-one-seo-pack-release-history/) |
