@@ -5,7 +5,10 @@
  */
 ?>
 
-<hr />
+	<hr />
+	<div class="push"></div>
+</div>
+
 <div id="footer" role="contentinfo">
 	<ol>
 		<li><strong>Pressform Engineering PTY LTD</strong> : 
@@ -26,8 +29,6 @@
 		?>
 		<li>Contact us for an obligation free quote <a href="<?php print $subscribelink; ?>">here</a>, or <a href='mailto:info@pressform.com.au'>info@pressform.com.au</a>, or 08 9279 8855</li>
 	</ol>
-	
-</div>
 </div>
 
 <?php /* "Just what do you think you're doing Dave?" */ ?>
