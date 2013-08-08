@@ -238,6 +238,7 @@
 //	place the api's url in meta instead ( see comment above ) 
 		$attachments['video']->meta['url'] = $video['url'];
 		$attachments['video']->meta['social-type'] = 'YouTube';
+		$attachments['video']->meta['id'] = $id;
 		if ( $ratings )
 			$attachments['video']->meta['ratings'] = $ratings;
 		if ( $statistics )
@@ -251,7 +252,8 @@
 		$attachments['poster']->set('post_mime_type', 'image/jpeg');
 		$attachments['poster']->set('post_parent', $parent_id);
 		$attachments['poster']->meta['roles']['poster'] = true;
-		
+		$attachments['poster']->meta['pid'] = $id;
+
 		$errors = _insert_social($attachments);
 		return $errors;
 		
@@ -283,7 +285,7 @@
 
 		if ( ! is_dir($dir_name) )
 			mkdir($dir_name) or die("Could not create directory " . $dir_name);
-		$dest = $dir_name . '/' . $attachments['video']->post['post_parent'] . '_' . _get_filename($poster);
+		$dest = $dir_name . '/' . $attachments['video']->post['post_parent'] . '_' . $attachments['video']->meta['id'] . '_' . _get_filename($poster);
 //	copy the file to the server
 		$data = file_get_contents($poster); 
 		$file = fopen($dest, "w+"); 
@@ -454,5 +456,21 @@ target='target';
 									";
 									
 	}
+
+  function is_socialFormatter($attachment, $size='medium') {
+    if ( strpos($attachment->mime_type, 'vimeo') > 0 ) {
+      return is_VimeoFormatter($attachment, $size);
+    } else {
+      return $attachment->mime_type;
+    }
+    
+  }
+  
+  function is_VimeoFormatter($attachment, $size='medium') {
+    $id = end(explode("/", $attachment->src));
+    return "
+      <iframe src='http://player.vimeo.com/video/$id?title=0&byline=0&portrait=0' width='400' height='225' frameborder='0'></iframe>
+    ";
+  }
 
 ?>

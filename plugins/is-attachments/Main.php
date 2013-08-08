@@ -2,14 +2,14 @@
 /**
  * @package is-attachments
  * @author Mr Snow
- * @version 0.883a
+ * @version 0.885
  */
 /*
 Plugin Name: isEngine Attachments
 Plugin URI: http://laudanum.net/wordpress
 Description: 
 Author: Mr Snow
-Version: 0.883a
+Version: 0.885
 Author URI: http://laudanum.net/mr.snow
 */
 	
@@ -17,6 +17,8 @@ Author URI: http://laudanum.net/mr.snow
 /*
 	
 	HISTORY
+	0.885 is_drawGallery supported. Also draws social video (vimeo only)
+	0.884	Multiple YouTube attachments have separate thumbnails
 	0.883a	disable proplayer for vimeo
 	0.883	attachments retain their menuorder
 	0.882	list downloads no longer expects a post id
@@ -219,7 +221,7 @@ v	social video
 			$images = _get_attachments($post_id, $mimetype='image');
 			$audio = _get_attachments($post_id, $mimetype='audio');
 			$video = _get_attachments($post_id, $mimetype='video');
-			$other = _get_attachments($post_id, $mimetype=null, $not_mimetype=array('image','video'));
+			$other = _get_attachments($post_id, $mimetype=null, $not_mimetype=array('image','video','audio'));
 
 
 			if ( count($images) ) {	
@@ -378,9 +380,40 @@ v	social video
 	}
 	
 	
-	function is_drawGallery($post_id=null, $size='medium', $mimetype='image') {
 	
-	}
+	
+    	function is_drawGallery($post_id=null, $size='medium', $mimetype=null, $linksize='large', $attachments=null) {
+    		if ( ! $attachments ) {
+    		  if ( $mimetype )
+	    		  $attachments = is_getAttachments($post_id, $mimetype);
+	    		else {
+	    		  $attachments = _get_attachments($post_id, $mimetype=null, $not_mimetype=array('application','text'));
+	    		  _update_image_paths($attachments);
+	    		}
+        }
+    //    print_r($attachments);
+        $i = 0;
+
+    		foreach ( $attachments as &$a ) {
+	        list($mime_type, $alt_title, $description) = is_get_attachment_meta($a);
+    			if ( strpos($a->mime_type,'video') === 0 ) {
+  			    $formatted = is_format_video($a, $size, $linksize);
+  			  } else if ( strpos($a->mime_type,'image') === 0 ) {
+  			    $formatted = is_format_image($a, $size, $linksize);
+          }
+
+    			echo "
+    			<li id='attachment-$a->ID' class='gallery-node item-$i attachment-$a->ID parent-$a->parent type-$mimetype mimetype-$mime_type'>
+            $formatted
+    				<span class='title'>$a->title</span>
+    				<span class='caption'>$a->caption</span>
+    				<span class='description'>$description</span>
+    			</li>
+    			";
+    			$i++;
+    		}
+    		return $attachments;
+    	}
 	
 	
 	function is_listAttachments($post_id=null, $mimetype='image', $attachments=null) {
@@ -480,75 +513,65 @@ v	social video
 			}
 		}
 	
-    	function is_drawImageGallery($post_id=null, $size='medium', $mimetype='image', $linksize='large', $attachments=null) {
-    		if ( ! $attachments )
-	    		$attachments = is_getAttachments($post_id, $mimetype);
-
-//   			print "<!-- $mimetype attachments linksize $linksize gallery count " . count($attachments);
-
- //   		print_r($attachments);
-
-   // 		print "-->";
-
-    		$i = 0;
+	function is_drawImageGallery($post_id=null, $size='medium', $mimetype='image', $linksize='large', $attachments=null) {
+	  return is_drawGallery($post_id, $size, $mimetype, $linksize, $attachments);
+	}
 
 
-    		foreach ( $attachments as &$a ) {
-    			$mime_type = str_replace('/','-',$a->mime_type);
-    			$alt_title = htmlspecialchars(strip_tags($a->title), ENT_QUOTES);
-    			$description = apply_filters("post_content", $a->description);
+  function is_get_attachment_meta($a) {
+    $mime_type = str_replace('/','-',$a->mime_type);
+		$alt_title = htmlspecialchars(strip_tags($a->title), ENT_QUOTES);
+		$description = apply_filters("post_content", $a->description);
+    return array($mime_type, $alt_title, $description);
+  }
 
-    			if ( strpos($a->mime_type,'video') === 0 ) {
-    			//	print "getting social uri";
-    			//	exit;
-    				$a->large = is_getSocialURI($a->large, $a->ID);
-    			}
+	
+	function is_format_video($a, $size, $linksize) {
+	  $formatted = is_socialFormatter($a, $size);
+    return $formatted;	  
+	}
+	
+	
+	function is_format_image($a, $size, $linksize) {
+	  list($mime_type, $alt_title, $description) = is_get_attachment_meta($a);
 
-    		//	print_r($a->meta);
+		if ( strpos($a->mime_type,'video') === 0 ) {
+			$a->large = is_getSocialURI($a->large, $a->ID);
+		}
 
-   				$zoom = $a->meta;
-   				$zoomsrc = $a->src;
+			$zoom = $a->meta;
+			$zoomsrc = $a->src;
 
-				if ( $linksize == 'caption' ) {
-					$zoomsrc = $a->caption;
-					$a->caption = '';
-    			} else if ( is_array($a->meta['sizes']) ) {
-    				if ( is_array($a->meta['sizes'][$linksize]) ) {
-    				    $zoom = $a->meta['sizes'][$linksize];
-    					$zoomsrc = $a->$linksize;
-	    			} else {
-    					$zoom = $a->meta;
-    					$zoomsrc = $a->src;
-					}
-    			} else if ( $linksize == 'src' ) {
-					$zoom = $a->meta;
-					$zoomsrc = $a->src;
-    			} else {
-    				$variables = get_object_vars($a);
-    				if ( in_array($linksize, array_keys($variables)) ) {
-	    				$zoom = $a->meta;
-    				    $zoomsrc = $a->$linksize;
-    				}
-    			} 
-				
-    			$rel = $zoom['width'] . 'x' . $zoom['height'];
-    			
-    		//	$rel = json_encode($rel);
-
-    			echo "
-    			<li id='attachment-$a->ID' class='gallery-node item-$i attachment-$a->ID parent-$a->parent type-$mimetype mimetype-$mime_type'>
-    				<a href='$zoomsrc' title='$alt_title' rel='$rel'>
-    					<img alt='$alt_title' lowsrc='" . $a->thumbnail . "' src='" . $a->$size . "' />
-    				</a>
-    				<span class='title'>$a->title</span>
-    				<span class='caption'>$a->caption</span>
-    				<span class='description'>$description</span>
-    			</li>
-    			";
-    			$i++;
-    		}
-    		return $attachments;
-    	}
+	if ( $linksize == 'caption' ) {
+		$zoomsrc = $a->caption;
+		$a->caption = '';
+		} else if ( is_array($a->meta['sizes']) ) {
+			if ( is_array($a->meta['sizes'][$linksize]) ) {
+			    $zoom = $a->meta['sizes'][$linksize];
+				$zoomsrc = $a->$linksize;
+			} else {
+				$zoom = $a->meta;
+				$zoomsrc = $a->src;
+		  }
+		} else if ( $linksize == 'src' ) {
+		  $zoom = $a->meta;
+		  $zoomsrc = $a->src;
+		} else {
+			$variables = get_object_vars($a);
+			if ( in_array($linksize, array_keys($variables)) ) {
+				$zoom = $a->meta;
+			    $zoomsrc = $a->$linksize;
+			}
+		} 
+	
+		$rel = $zoom['width'] . 'x' . $zoom['height'];
+		
+		return "
+      <a href='$zoomsrc' title='$alt_title' rel='$rel'>
+				<img alt='$alt_title' lowsrc='" . $a->thumbnail . "' src='" . $a->$size . "' />
+			</a>
+		";
+	}
 	
 	
 	function _get_attachments($post_id, $mimetype=null, $not_mimetype=null, $limit=null) {
@@ -806,6 +829,6 @@ v	social video
 	add_action('wp_ajax_is_attachments', 'ajax_is_attachments');
 	add_action('wp_ajax_nopriv_is_attachments', 'ajax_is_attachments'); 
 	add_action('wp_print_scripts', 'is_attachments_header');
-Ê
+Â 
 
 ?>
