@@ -59,17 +59,12 @@ get_header(); ?>
 		<?php endwhile; endif; ?>
 	<?php edit_post_link('Edit this entry.', '<p>', '</p>'); ?>
 	
-	<?php 
-	if ( ! $post->attachments ) {
-		$post->attachments = is_getAttachments($post->ID);
-	}
-	
-	if ( $post->attachments['feature'] ) {
-		print "<img src=\"".$post->attachments['feature']->large."\" alt=\"".$post->attachments['feature']->caption."\" title=\"".$post->attachments['feature']->caption."\" id=\"feature\"/>";
-	}
-	?>
-	
+
 	</div>
+        <aside class="page" >
+            <?php include('gallery-list.php'); ?>
+        </aside>
+
 	<?php if ( false ) { ?>
 	<div id="laser"><a href="<?php print get_category_link(16); ?>"><img src="<?php bloginfo('stylesheet_directory'); ?>/images/laser-cuttings-new.gif" width="125" height="125" alt="Laser Cutting" title="Laser Cutting"/><a/></div>
 	<? } ?>

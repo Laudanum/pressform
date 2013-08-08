@@ -174,7 +174,6 @@ h4 {
 	font-weight:normal;
 	padding:5px 10px 5px 10px;
 	width: 160px;
-	
 }
 
 #nav ul li { 
@@ -446,13 +445,18 @@ ul.downloads li a {
 	width: 49%;
 }
 
-.single-product aside {
-	float: right;
-	width: 49%;
-	margin: 4em 2em;
+aside {
+	float: left;
+	margin: 30px 2em;
 }
-nav.one-attachment {
+.gallery-navigation, /* disable -- we print out all attachments */
+.gallery-navigation nav.one-attachment {
 	display: none;
+}
+
+
+.gallery .gallery-node span {
+	display: block;
 }
 
 header {
@@ -470,8 +474,4 @@ body.category .entry .image {
 body.category .entry h2 {
 	float: none;
 	margin-bottom: 0.5em;
-}
-
-.gallery .gallery-item span {
-	display: block;
 }
