@@ -1,4 +1,5 @@
 .DS_Store
 uploads/
 themes/twenty*
+plugins/wp-complete-backup/storage/
 files_mf/
