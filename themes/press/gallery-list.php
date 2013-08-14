@@ -3,8 +3,23 @@
       <div class="gallery">
       <ul id="gallery-<?the_ID()?>">
         <?php
-          $attachments = is_drawGallery();
+          $attachments = is_getAttachments();
+          is_drawImageGallery();
           $total_attachments = count($attachments);
+
+          // videos [youtube=http://www.youtube.com/watch?v=JaNH56Vpg-A]
+          // shortcode processor
+          foreach ( $attachments['video'] as $v ) {
+            echo '<li>';
+            if ( shortcode_exists( 'embed' ) ) {
+              $code = '[embed width="123" height="456"]' . $v->src . '[/embed]';
+              echo do_shortcode($code);
+            } else {
+              echo $v->src;
+            }
+            echo '</li>';
+          }
+
         ?>
       </ul>
       </div>

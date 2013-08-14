@@ -36,6 +36,10 @@ wp_enqueue_script('jquery', get_bloginfo('stylesheet_directory').'/libs/krewenki
       wp_nav_menu("menu=main-menu&container_class=main-menu&menu_id=nav");
   }
   ?>
+  <div class='extra description'><?php bloginfo ( 'description' ); ?></div>
+  <div class='extra social'>
+    <a href="http://www.facebook.com/pages/Pressform-Engineering-Pty-Ltd/196396364168?fref=ts" style="display:inline;"><img src="/wp-content/uploads/2013/02/f_logo.png" height="20px" width="20px"></a>
+  </div>
 </div>
 
 <?php if ( is_front_page() ) { print "<div id=\"home\">"; } ?>

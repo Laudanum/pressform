@@ -21,40 +21,43 @@ get_header(); ?>
 			</div>
 		</div>
 		<?php if ( is_front_page() ) { ?>
+
+
+		<h4>News</h4>
+		<ol class="list">
+		<?php 
+			$args = array(
+				'post_type' => 'post',
+				'category' => '8', // any parent
+				); 
+			$news = get_posts($args);
+			if ($news) {
+				foreach ($news as $newspost) {
+					//setup_postdata($post);
+					print "<li><a href=\"".get_permalink($newspost->ID)."\">".get_the_title($newspost->ID)."</a></li>";
+					
+					
+				}
+			}
+		?>
+		</ol>
+		<br>
+
 		<h4>Downloads</h4>
 		<ol class="list">
 		<?php is_listDownloads($post->ID); ?>
 		</ol>
 		<br />
 		
+		<h4>Links</h4>
 		<ol class="list">
 		<?php
-		wp_list_bookmarks();
+			wp_list_bookmarks(array('title_li'=>0, 'categorize'=>0));
 		?>
 		</ol>
 		<br/>
 		
-		<h4>News</h4>
-		<ol class="list">
-		<?php 
-		$args = array(
-			'post_type' => 'post',
-			'category' => '8', // any parent
-			); 
-		$news = get_posts($args);
-		if ($news) {
-			foreach ($news as $newspost) {
-				//setup_postdata($post);
-				print "<li><a href=\"".get_permalink($newspost->ID)."\">".get_the_title($newspost->ID)."</a></li>";
-				
-				
-			}
-		}
 
-		//wp_list_categories('child_of=8&hide_empty=0&title_li=<a>News</a>');  
-		?>
-		</ol>
-		<br />
 		<?php } ?>
 		<?php endwhile; endif; ?>
 	<?php edit_post_link('Edit this entry.', '<p>', '</p>'); ?>
