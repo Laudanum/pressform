@@ -10,10 +10,11 @@
           // videos [youtube=http://www.youtube.com/watch?v=JaNH56Vpg-A]
           // shortcode processor
           foreach ( $attachments['video'] as $v ) {
-            echo '<li>';
+            echo '<li class="gallery-node type-video">';
             if ( shortcode_exists( 'embed' ) ) {
-              $code = '[embed width="123" height="456"]' . $v->src . '[/embed]';
-              echo do_shortcode($code);
+              global $wp_embed;
+              $code = '[embed width="450" height="320"]' . $v->src . '[/embed]';
+              echo $wp_embed->run_shortcode($code);
             } else {
               echo $v->src;
             }
