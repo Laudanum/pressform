@@ -69,7 +69,13 @@ a:hover {
 .clearfix,
 .clear {clear: both}
 
-ol, ul {list-style: none}
+ol, ul {
+	list-style: none
+}
+
+ol.aligned {
+	padding: 0;
+}
 
 #mainnav {
 	font-size: 11px;
@@ -463,14 +469,18 @@ aside {
 	float: left;
 	margin: 30px 2em;
 }
+
 .gallery-navigation, /* disable -- we print out all attachments */
 .gallery-navigation nav.one-attachment {
 	display: none;
 }
 
-
 .gallery .gallery-node span {
 	display: block;
+}
+
+.gallery .gallery-node {
+	margin-bottom: 1.5em;
 }
 
 header {
@@ -480,6 +490,7 @@ header {
 body.category .entry {
 	margin-bottom: 1em;
 }
+
 body.category .entry .image {
 	float: left;
 	margin-right: 1em;
@@ -496,6 +507,8 @@ a.email_link {
 	font-weight: bold;
 	text-transform: uppercase;
 }
+
 img.mail_icon {
 	vertical-align: middle;
 }
+
