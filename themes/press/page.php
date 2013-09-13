@@ -24,7 +24,7 @@ get_header(); ?>
 
 
 		<h4>News</h4>
-		<ol class="list">
+		<ol class="list aligned">
 		<?php 
 			$args = array(
 				'post_type' => 'post',
@@ -44,19 +44,20 @@ get_header(); ?>
 		<br>
 
 		<h4>Downloads</h4>
-		<ol class="list">
+		<ol class="list aligned">
 		<?php is_listDownloads($post->ID); ?>
 		</ol>
 		<br />
 		
+		<?php if ( wp_list_bookmarks('echo=0') ) : ?>
 		<h4>Links</h4>
-		<ol class="list">
+		<ol class="list aligned">
 		<?php
 			wp_list_bookmarks(array('title_li'=>0, 'categorize'=>0));
 		?>
 		</ol>
 		<br/>
-		
+		<?php endif; ?>
 
 		<?php } ?>
 		<?php endwhile; endif; ?>
