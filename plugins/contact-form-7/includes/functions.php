@@ -144,6 +144,21 @@ function wpcf7_upload_dir( $type = false ) {
 	return $uploads;
 }
 
+if ( ! function_exists( 'wp_is_writable' ) ) {
+/*
+ * wp_is_writable exists in WordPress 3.6+
+ * http://core.trac.wordpress.org/browser/tags/3.6/wp-includes/functions.php#L1437
+ * We will be able to remove this function definition
+ * after moving required WordPress version up to 3.6.
+ */
+function wp_is_writable( $path ) {
+	if ( 'WIN' === strtoupper( substr( PHP_OS, 0, 3 ) ) )
+		return win_is_writable( $path );
+	else
+		return @is_writable( $path );
+}
+}
+
 function wpcf7_l10n() {
 	$l10n = array(
 		'af' => __( 'Afrikaans', 'wpcf7' ),
@@ -158,6 +173,7 @@ function wpcf7_l10n() {
 		'pt_BR' => __( 'Brazilian Portuguese', 'wpcf7' ),
 		'bg_BG' => __( 'Bulgarian', 'wpcf7' ),
 		'ca' => __( 'Catalan', 'wpcf7' ),
+		'ckb' => __( 'Central Kurdish', 'wpcf7' ),
 		'zh_CN' => __( 'Chinese (Simplified)', 'wpcf7' ),
 		'zh_TW' => __( 'Chinese (Traditional)', 'wpcf7' ),
 		'hr' => __( 'Croatian', 'wpcf7' ),
@@ -177,6 +193,7 @@ function wpcf7_l10n() {
 		'he_IL' => __( 'Hebrew', 'wpcf7' ),
 		'hi_IN' => __( 'Hindi', 'wpcf7' ),
 		'hu_HU' => __( 'Hungarian', 'wpcf7' ),
+		'bn_IN' => __( 'Indian Bengali', 'wpcf7' ),
 		'id_ID' => __( 'Indonesian', 'wpcf7' ),
 		'ga_IE' => __( 'Irish', 'wpcf7' ),
 		'it_IT' => __( 'Italian', 'wpcf7' ),
@@ -220,6 +237,9 @@ function wpcf7_is_rtl() {
 
 function wpcf7_ajax_loader() {
 	$url = wpcf7_plugin_url( 'images/ajax-loader.gif' );
+
+	if ( is_ssl() && 'http:' == substr( $url, 0, 5 ) )
+		$url = 'https:' . substr( $url, 5 );
 
 	return apply_filters( 'wpcf7_ajax_loader', $url );
 }
@@ -268,8 +288,22 @@ function wpcf7_array_flatten( $input ) {
 	return $output;
 }
 
+function wpcf7_flat_join( $input ) {
+	$input = wpcf7_array_flatten( $input );
+	$output = array();
+
+	foreach ( (array) $input as $value )
+		$output[] = trim( (string) $value );
+
+	return implode( ', ', $output );
+}
+
 function wpcf7_support_html5() {
 	return (bool) apply_filters( 'wpcf7_support_html5', true );
+}
+
+function wpcf7_support_html5_fallback() {
+	return (bool) apply_filters( 'wpcf7_support_html5_fallback', false );
 }
 
 function wpcf7_format_atts( $atts ) {

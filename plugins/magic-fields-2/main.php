@@ -3,7 +3,7 @@
 Plugin Name: Magic Fields
 Plugin URI: http://magicfields.org
 Description: Create custom fields for your post types
-Version: 2.1
+Version: 2.2
 Author:  Hunk and Gnuget
 Author URI: http://magicfields.org
 License: GPL2
@@ -303,6 +303,12 @@ function mf_action_links($links, $file){
 add_action('template_redirect','mf_change_template');
 function mf_change_template() {
   global $post;
+
+  // Check global post
+  if ( empty( $post ) ) {
+    return;
+  }
+
 
   // Process feeds and trackbacks even if not using themes.
   if ( is_robots() ) :

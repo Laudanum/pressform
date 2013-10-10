@@ -234,7 +234,7 @@ jQuery(document).ready(function($){
     }
   });
 
-  $('.update_field_media_upload').live('click', function(){
+  $(document).on('click', '.update_field_media_upload',function(){
     window.mf_field_id = jQuery(this).attr('id');
   });
 	
@@ -242,7 +242,7 @@ jQuery(document).ready(function($){
     window.mf_field_id = '';
   });
 	
-  $(".mce_add_image , .mce_add_video , .mce_add_audio , .mce_add_media").live('click',function(){
+  $(document).on('click',".mce_add_image , .mce_add_video , .mce_add_audio , .mce_add_media",function(){
     window.mf_field_id = '';
 	var a = this;
 	// When a mce button is clicked, we have to hotswap the activeEditor instance, else the image will be inserted into the wrong tinyMCE box (current editor)
@@ -253,3 +253,34 @@ jQuery(document).ready(function($){
 		
   });
 });
+
+function mf_use_new_image_gallery(){
+	
+  if (typeof wp === 'undefined' || typeof wp.media === 'undefined') return; 
+		
+  var _custom_media = true;
+  _orig_send_attachment = wp.media.editor.send.attachment;
+
+  jQuery('.update_field_media_upload').removeClass('thickbox');
+  jQuery(document).on('click', '.update_field_media_upload',function(e){
+    window.mf_field_id = jQuery(this).attr('id').replace('thumb_', '');
+    _custom_media = true;
+
+    wp.media.editor.send.attachment = function(props, attachment){
+      if ( _custom_media ) {
+        jQuery("#"+window.mf_field_id).val(attachment.url);
+        mf_set_image_field(attachment.id);
+      }else{
+        return _orig_send_attachment.apply( this, [props, attachment] );
+      };
+    }
+
+    wp.media.editor.open(jQuery(this));
+    return false;
+  });
+
+  jQuery('.add_media').on('click', function(){
+    _custom_media = false;
+  });
+
+}

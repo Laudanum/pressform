@@ -95,7 +95,9 @@ class mf_posttype extends mf_admin {
           'label' => __( 'Quantity', $mf_domain ),
           'name' => 'mf_posttype[core][quantity]',
           'value' => 0,
-          'description' => __( 'mark true if you want your post type only has one element.', $mf_domain )
+          'description' => __( 'mark true if you want your post type only has one element.', $mf_domain ),
+          'class' => '',
+          'div_class' => ''
         )
       ),
       'posttype_support' => array(),
@@ -787,7 +789,7 @@ class mf_posttype extends mf_admin {
       $p = $this->get_post_type($post_type);
     }else{
       global $_wp_post_type_features;
-      $tmp = get_post_types( array('public' => true,'name' => $post_type) , 'onbject', 'and' );
+      $tmp = get_post_types( array('name' => $post_type) , 'onbject', 'and' );
 
       $tmp = $tmp[$post_type];
 
@@ -938,7 +940,7 @@ class mf_posttype extends mf_admin {
       $file_path = $_FILES['file']['tmp_name'];
       $overwrite = $_POST['mf_post_type']['import']['overwrite'];
       $this->import($file_path,$overwrite);
-      unlink($filePath);
+      unlink($file_path);
       $this->mf_redirect(null,null,array('message' => 'success'));
     }else{
       //mensaje de error

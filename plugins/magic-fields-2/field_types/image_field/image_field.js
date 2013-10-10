@@ -31,8 +31,9 @@ function remove_resp(field_id){
   });
 }
 
-jQuery('.remove_photo').live('click', function(){
-  if(confirm("Are you sure?")){
+jQuery(document).on('click','.remove_photo', function(){
+  var message = jQuery(this).attr('alt');
+  if(confirm(message)){
     var pattern =  /remove\-(.+)/i;
     var id = jQuery(this).attr('id');
     id = pattern.exec(id);
