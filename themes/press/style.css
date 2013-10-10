@@ -433,7 +433,9 @@ ul.downloads li a {
 
 }
 
-#ilihur-ilihur, #name, #Company {margin: 0 0 10px 10px;}
+input {
+	margin: 0 0 10px 10px;
+}
 
 /* Contacts */
 #column .contacts {
