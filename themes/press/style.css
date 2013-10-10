@@ -74,7 +74,7 @@ ol, ul {
 }
 
 ol.aligned {
-	padding: 0;
+	padding: 1em;
 }
 
 #mainnav {
@@ -386,11 +386,16 @@ hr {
 	background: #CFCFCD;
 }
 
+.list li {
+	list-style-image: url("images/ico_arrow.gif");
+}
 .list li a, .list li a:active, .list li a:visited {
-	padding-left: 10px;
-	background: url("images/ico_arrow.gif") left center no-repeat;
 	color: #FA0019;
 	line-height: 20px;
+	text-decoration: none;
+}
+.list li a:hover {
+	text-decoration: underline;
 }
 
 .list h2 {

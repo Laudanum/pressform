@@ -6,7 +6,7 @@
 </header>
 
 <?php
-    $sales_email = 'info@pressform.com.au';
+    $sales_email = 'sales@pressform.com.au';
 ?>
 
 <div class="entry clearfix">
