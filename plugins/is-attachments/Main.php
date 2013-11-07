@@ -72,7 +72,7 @@ v	social video
 
 	include_once ( dirname(__FILE__) . "/is-admin.php");
 	include_once ( dirname(__FILE__) . "/is-options.php");
-	include_once ( dirname(__FILE__) . "/is-library.php");
+//	include_once ( dirname(__FILE__) . "/is-library.php");
 	include_once ( dirname(__FILE__) . "/is-socialvideo.php");
 	include_once ( dirname(__FILE__) . "/is-widget.php");
 	include_once ( dirname(__FILE__) . "/is-utils.php");
@@ -468,8 +468,11 @@ v	social video
 			}			
 			
 			$downloads = _get_attachments($post_id, $mimetype=null, $not_mimetype=array('image','video', 'audio'));
-	
-			if ( count($downloads) ) {
+/*
+print "<pre>";
+print_r($downloads);
+print "</pre>";	
+*/			if ( count($downloads) ) {
 				foreach ( $downloads as $a ) {
 					$type = 'type-other';
    					$mime_type = str_replace('/','-',$a->mime_type);
@@ -635,63 +638,23 @@ v	social video
 				$wpdb->posts.post_parent as parent,
 				$wpdb->posts.menu_order as `order`,
 				$wpdb->posts.guid as src,
-				$wpdb->posts.post_mime_type as mime_type,
-				$wpdb->postmeta.meta_value as meta
+				$wpdb->posts.post_mime_type as mime_type
 			FROM $wpdb->posts
-			LEFT JOIN $wpdb->postmeta
-			ON
-				$wpdb->posts.ID = $wpdb->postmeta.post_id
 			WHERE 1
 			$posts
-			AND $wpdb->postmeta.meta_key = '_wp_attachment_metadata'
 			AND $wpdb->posts.post_type = 'attachment'
 			$mime
 			$not_mime
 			ORDER BY `order`
 		";
-/*
-		$query = "
-			SELECT
-				$wpdb->posts.ID as ID,
-				$wpdb->posts.post_title as title,
-				$wpdb->posts.post_content as description,
-				$wpdb->posts.post_excerpt as caption,
-				$wpdb->posts.guid as src,
-				$wpdb->posts.post_mime_type as mime_type,
-				$wpdb->postmeta.meta_value as meta,
-				children.ID as children,
-				children.guid as child_src,
-				childrens_meta.meta_value as child_meta
-				
-			FROM $wpdb->posts
-			LEFT JOIN $wpdb->postmeta
-			ON
-				$wpdb->posts.ID = $wpdb->postmeta.post_id
-			LEFT JOIN $wpdb->posts as children
-			ON
-				$wpdb->posts.ID = children.post_parent
-			LEFT JOIN $wpdb->postmeta as childrens_meta
-			ON
-				children.post_parent = childrens_meta.post_id
-			WHERE $wpdb->posts.post_parent = $post_id
-			AND $wpdb->posts.post_type = 'attachment'
-			AND $wpdb->postmeta.meta_key = '_wp_attachment_metadata'
-			AND childrens_meta.meta_key = '_wp_attachment_metadata'
-			$mime
-			$not_mime
-			ORDER BY $wpdb->posts.menu_order
-		";
-*/		
 		if ( $limit )	
 			$query .= " LIMIT $limit";
 		
 //		print "<!-- $query \n -->";
-		
 		$results = $wpdb->get_results($query);
-	
-		for ( $i = 0; $i < count($results); $i++ )
-			$results[$i]->meta = unserialize($results[$i]->meta);
-			
+		for ( $i = 0; $i < count($results); $i++ ) {
+			$results[$i]->meta = get_post_meta($results[$i]->id, '_wp_attachment_metadata', TRUE);
+		}
 		return $results;
 
 	}
@@ -818,7 +781,7 @@ v	social video
 
 //	add social tab and perhaps parents
 		add_filter('media_upload_tabs', 'is_upload_tab');
-		add_action('media_upload_social_video', 'media_upload_social_video');
+//		add_action('media_upload_social_video', 'media_upload_social_video');
 
 
 //		add_filter('posts_where', 'is_attachments_admin_posts_where');
@@ -826,9 +789,9 @@ v	social video
 	
  	add_action('widgets_init', 'is_widgets_init');
 
-	add_action('wp_ajax_is_attachments', 'ajax_is_attachments');
-	add_action('wp_ajax_nopriv_is_attachments', 'ajax_is_attachments'); 
-	add_action('wp_print_scripts', 'is_attachments_header');
+//	add_action('wp_ajax_is_attachments', 'ajax_is_attachments');
+//	add_action('wp_ajax_nopriv_is_attachments', 'ajax_is_attachments'); 
+//	add_action('wp_print_scripts', 'is_attachments_header');
  
 
 ?>
