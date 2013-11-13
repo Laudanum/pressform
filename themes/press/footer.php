@@ -16,14 +16,14 @@
 		</li>
 		<li><strong>Phone:</strong> +61 8 9279 8855</li>
 		<li><strong>Fax:</strong> +61 8 9279 9929</li>
-		<?
+		<?php
 		$page = get_page_by_title('Contacts');
 		$link = get_page_link($page->ID);
 		?>
-		<li><a href="<? print $link;?>">Contacts</a></li>
+		<li><a href="<?php print $link; ?>">Contacts</a></li>
 	</ol>
 	<ol class="text">
-		<?
+		<?php
 		$page = get_page_by_title('Contact');
 		$subscribelink = get_page_link($page->ID);
 		?>

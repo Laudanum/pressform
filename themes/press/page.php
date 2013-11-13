@@ -71,7 +71,7 @@ get_header(); ?>
 
 	<?php if ( false ) { ?>
 	<div id="laser"><a href="<?php print get_category_link(16); ?>"><img src="<?php bloginfo('stylesheet_directory'); ?>/images/laser-cuttings-new.gif" width="125" height="125" alt="Laser Cutting" title="Laser Cutting"/><a/></div>
-	<? } ?>
+	<?php } ?>
 
 
 <?php get_footer(); ?>

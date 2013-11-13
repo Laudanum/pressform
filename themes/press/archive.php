@@ -94,7 +94,7 @@ jQuery(document).ready(function() {
 				$title = $post->attachments['poster']->title;
 				?>
 				<li>
-				<a href="<?php print $largeimg; ?>" rel='lightbox' class="thumbnail" title="<?php the_title(); ?>" onmouseover="showName(<?php print $post->ID;?>)" onmouseout="hideName(<?php print $post->ID;?>)"><img src="<? print $thumbimg; ?>" alt="<?php the_title(); ?>" title="<?php the_title(); ?>"/><br /><span class="prodname" id="name<?php print $post->ID; ?>" style="display:none;"><?php the_title(); ?></span></a>
+				<a href="<?php print $largeimg; ?>" rel='lightbox' class="thumbnail" title="<?php the_title(); ?>" onmouseover="showName(<?php print $post->ID;?>)" onmouseout="hideName(<?php print $post->ID;?>)"><img src="<?php print $thumbimg; ?>" alt="<?php the_title(); ?>" title="<?php the_title(); ?>"/><br /><span class="prodname" id="name<?php print $post->ID; ?>" style="display:none;"><?php the_title(); ?></span></a>
 				</li>
 
 				
