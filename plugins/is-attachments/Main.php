@@ -789,9 +789,9 @@ print "</pre>";
 	
  	add_action('widgets_init', 'is_widgets_init');
 
-//	add_action('wp_ajax_is_attachments', 'ajax_is_attachments');
-//	add_action('wp_ajax_nopriv_is_attachments', 'ajax_is_attachments'); 
-//	add_action('wp_print_scripts', 'is_attachments_header');
+	add_action('wp_ajax_is_attachments', 'ajax_is_attachments');
+	add_action('wp_ajax_nopriv_is_attachments', 'ajax_is_attachments'); 
+	add_action('wp_print_scripts', 'is_attachments_header');
  
 
 ?>
