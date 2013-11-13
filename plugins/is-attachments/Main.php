@@ -17,7 +17,8 @@ Author URI: http://laudanum.net/mr.snow
 /*
 	
 	HISTORY
-	0.885 is_drawGallery supported. Also draws social video (vimeo only)
+	0.886	Fix for attachments without metadata
+	0.885	is_drawGallery supported. Also draws social video (vimeo only)
 	0.884	Multiple YouTube attachments have separate thumbnails
 	0.883a	disable proplayer for vimeo
 	0.883	attachments retain their menuorder
@@ -72,7 +73,7 @@ v	social video
 
 	include_once ( dirname(__FILE__) . "/is-admin.php");
 	include_once ( dirname(__FILE__) . "/is-options.php");
-//	include_once ( dirname(__FILE__) . "/is-library.php");
+	include_once ( dirname(__FILE__) . "/is-library.php");
 	include_once ( dirname(__FILE__) . "/is-socialvideo.php");
 	include_once ( dirname(__FILE__) . "/is-widget.php");
 	include_once ( dirname(__FILE__) . "/is-utils.php");
@@ -650,10 +651,9 @@ print "</pre>";
 		if ( $limit )	
 			$query .= " LIMIT $limit";
 		
-//		print "<!-- $query \n -->";
 		$results = $wpdb->get_results($query);
 		for ( $i = 0; $i < count($results); $i++ ) {
-			$results[$i]->meta = get_post_meta($results[$i]->id, '_wp_attachment_metadata', TRUE);
+			$results[$i]->meta = get_post_meta($results[$i]->ID, '_wp_attachment_metadata', TRUE);
 		}
 		return $results;
 
