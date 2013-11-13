@@ -77,9 +77,7 @@ License: GPL2
         );
         $query = new WP_Query( $args );
         $children = $query->posts;
-print "<!-- menu children " . count($children) . " -->";
-print "<!-- menu children " . print_r($query, TRUE) . " -->";
-print "<!-- menu children " . print_r($args, TRUE) . " -->";
+
         $i = 0;
         global $post;
         foreach ( $children as $child ) {
